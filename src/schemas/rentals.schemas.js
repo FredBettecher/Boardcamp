@@ -1,4 +1,4 @@
-import joi, { string } from "joi";
+import joi from "joi";
 import date from "@joi/date";
 
 const joiDate = joi.extend(date);
@@ -8,7 +8,7 @@ export const rentalSchema = joi.object({
     gameId: joi.number().required(),
     rentDate: joiDate.date().format('YYYY-MM-DD'),
     daysRented: joi.number().required(),
-    returnDate: joi.number().optional(),
+    returnDate: joi.number().allow(null),
     originalPrice: joi.number().required(),
-    delayFee: joi.number().optional()
+    delayFee: joi.number().allow(null)
 });

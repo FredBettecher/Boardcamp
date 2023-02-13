@@ -26,8 +26,13 @@ export const validateCustomerById = async (req, res, next) => {
         return res.status(400).send(customersValidation.error.message);
     }
 
-    const customerExistsNot = await db.query(`SELECT * FROM customers WHERE id = $1`, [id]);
-    if(customerExistsNot.rows[0].length < 1) {
+    const cpfExists = await db.query(`SELECT * FROM customers WHERE cpf = $1`, [cpf]);
+    if(cpfExists.rows.length > 0) {
+        return res.status(409).send("CPF já cadastrado.");
+    }
+
+    const customerExists = await db.query(`SELECT * FROM customers WHERE id = $1`, [id]);
+    if(customerExists.rows[0].length < 1) {
         return res.status(404).send("Não existe usuário com este id cadastrado.");
     }
 
