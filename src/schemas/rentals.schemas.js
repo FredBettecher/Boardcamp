@@ -1,7 +1,6 @@
 import joi, { string } from "joi";
 
 export const rentalSchema = joi.object({
-    id: joi.number().required(),
     customerId: joi.number().required(),
     gameId: joi.number().required(),
     rentDate: joi.date().format('YYYY-MM-DD'),
