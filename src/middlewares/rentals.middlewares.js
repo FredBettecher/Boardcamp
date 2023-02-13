@@ -34,3 +34,14 @@ export const validateRentals = async (req, res, next) => {
 
     next(); 
 };
+
+export const validateReturnRentals = async (req, res, next) => {
+    const { id } = req.params;
+    const idExists = await db.query(`SELECT * FROM rental WHERE id = $1`, [id]);
+
+    if(idExists.rows.length < 1) {
+        return res.status(404).send("Id de aluguel não encontrado.");
+    }
+
+    next();
+}

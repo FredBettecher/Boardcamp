@@ -26,3 +26,15 @@ export const postRentals = async (req, res) => {
         return res.status(500).send(err.message);
     }
 }
+
+export const returnRental = async (req, res) => {
+    const { id } = req.params;
+    const returnDate = dayjs(Date.now()).format('YYYY-MM-DD');
+
+    try {
+        const updateRental = await db.query(`UPDATE FROM rentals SET "returnDate" = $1 WHERE id = $2`, [returnDate, id]);
+
+    } catch(err) {
+        return res.status(500).send(err.message);
+    }
+}
